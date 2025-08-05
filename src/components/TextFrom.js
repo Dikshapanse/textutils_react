@@ -39,10 +39,7 @@ export default function TextFrom (props){
 
      // Copy the text
     const handleCopy = () => {
-        var text = document.getElementById("myBox");
-        text.select();
-        navigator.clipboard.writeText(text.value);
-        document.getSelection().removeAllRanges();
+        navigator.clipboard.writeText(text);
         props.showAlert("Text copied to clipbord!", "success")
     }
     // Remove Extra Spases
@@ -53,7 +50,6 @@ export default function TextFrom (props){
     }
 
     const handleOnChange = (event) => {
-      //  console.log("Onchange");
         setText(event.target.value);
     }
     
@@ -77,7 +73,7 @@ export default function TextFrom (props){
             </div>
             <div className="container my-3" style={{color:props.mode === 'dark'?'white':'#2a3b46'}}>
                 <h2>Your text summary</h2>
-                <p><b>{text.split(" ").filter((element)=>{return element.length!==0}).length} Words and {text.length} Characters</b></p>
+                <p><b>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} Words and {text.length} Characters</b></p>
                 <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read</p>
                 <h2>Preview</h2>
                 <p>{text.length>0?text:"Nothing to preview"}</p>
